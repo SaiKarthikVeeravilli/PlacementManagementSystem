@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const StudentModel = require("../Models/StudentModel");
 const cloudinary = require("../config/cloudinary");
-const sendEmail = require("../Utils/sendEmail");
+const sendEmail = require("../Utils/SendEmail");
 const crypto = require("crypto");
 
 // ==========================================
