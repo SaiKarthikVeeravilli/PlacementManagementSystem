@@ -25,7 +25,18 @@ const AuthMiddleware = async (req, res, next) => {
 
         req.user = user;
         next();
+
     } catch (err) {
+        if (
+            err.name === "JsonWebTokenError" ||
+            err.name === "TokenExpiredError"
+        ) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid or expired session"
+            });
+        }
+
         next(err);
     }
 };

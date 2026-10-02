@@ -1,66 +1,80 @@
-const mongoose=require('mongoose');
-const {isEmail}=require('validator');
-const bcrypt=require('bcrypt');
-const userSchema=new mongoose.Schema({
-  name:{
-    type:String,
-    required:true,
-    minlength:[6,'name should contain minimum 6 characters']
-  },
-  email:{
-    type:String,
-    required:true,
-    unique:true,
-    validate:[isEmail,'Enter valid Email']
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: [7, 'password must be atleast 7 characters']
-},
-  role:{
-    type:String,
-    enum:["student","admin"],
-    default:"student"
+const mongoose = require("mongoose");
+const { isEmail } = require("validator");
+const bcrypt = require("bcrypt");
 
-  },
-  resetPasswordToken: {
-  type: String,
-  default: null
-},
+const userSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: [true, "Name is required"],
+            trim: true,
+            minlength: [6, "Name should contain minimum 6 characters"],
+            maxlength: [100, "Name cannot exceed 100 characters"]
+        },
 
-resetPasswordExpires: {
-  type: Date,
-  default: null
-},
-notificationsEnabled: {
-  type: Boolean,
-  default: true
-}
+        email: {
+            type: String,
+            required: [true, "Email is required"],
+            unique: true,
+            trim: true,
+            lowercase: true,
+            maxlength: [254, "Email cannot exceed 254 characters"],
+            validate: [isEmail, "Enter valid Email"]
+        },
 
-})
+        password: {
+            type: String,
+            required: [true, "Password is required"],
+            minlength: [8, "Password must be at least 8 characters"],
+            select: false
+        },
+
+        role: {
+            type: String,
+            enum: ["student", "admin"],
+            default: "student"
+        },
+
+        resetPasswordToken: {
+            type: String,
+            default: null,
+            select: false
+        },
+
+        resetPasswordExpires: {
+            type: Date,
+            default: null,
+            select: false
+        },
+
+        notificationsEnabled: {
+            type: Boolean,
+            default: true
+        }
+    },
+    {
+        timestamps: true
+    }
+);
+
+
+// Hash password before saving
 userSchema.pre("save", async function () {
 
-  console.log("PRE SAVE START");
+    // Only hash when password is created or changed
+    if (!this.isModified("password")) {
+        return;
+    }
 
-  if (!this.isModified("password")) {
+    const salt = await bcrypt.genSalt(10);
 
-    console.log("PASSWORD NOT MODIFIED");
-
-    return;
-  }
-
-  console.log("PASSWORD MODIFIED");
-
-  const salt = await bcrypt.genSalt(10);
-
-  this.password = await bcrypt.hash(
-    this.password,
-    salt
-  );
-
-  console.log("PASSWORD HASHED");
-
+    this.password = await bcrypt.hash(
+        this.password,
+        salt
+    );
 });
-const userModel=mongoose.model('user',userSchema);
-module.exports=userModel;
+
+
+const userModel = mongoose.model("user", userSchema);
+
+module.exports = userModel;
