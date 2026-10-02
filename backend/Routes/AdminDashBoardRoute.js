@@ -1,7 +1,7 @@
 const express = require("express");
 const router5 = express.Router();
 
-const AdminDashboardController = require("../Controllers/AdminDashBoardController");
+const AdminDashboardController = require("../Controllers/AdmindashBoardController");
 const AdminMiddleware = require("../Middlewares/AdminMiddleware");
 
 router5.get(
