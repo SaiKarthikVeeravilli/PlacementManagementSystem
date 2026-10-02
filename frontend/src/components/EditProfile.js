@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "./studentForm.css";
 import api from "../services/axios";
@@ -37,23 +38,23 @@ function EditProfile() {
           const data = res.data.profile;
 
           setProfile({
-            phoneno: data.phoneno || "",
-            gender: data.gender || "",
-            collegename: data.collegename || "",
-            branch: data.branch || "",
-            currentyear: data.currentyear || "",
-            currentsemester: data.currentsemester || "",
-            cgpa: data.cgpa || "",
-            percentage10th: data.percentage10th || "",
-            percentage12th: data.percentage12th || "",
-            activebacklogs: data.activebacklogs || "",
-            passingyear: data.passingyear || "",
+            phoneno: data.phoneno ?? "",
+            gender: data.gender ?? "",
+            collegename: data.collegename ?? "",
+            branch: data.branch ?? "",
+            currentyear: data.currentyear ?? "",
+            currentsemester: data.currentsemester ?? "",
+            cgpa: data.cgpa ?? "",
+            percentage10th: data.percentage10th ?? "",
+            percentage12th: data.percentage12th ?? "",
+            activebacklogs: data.activebacklogs ?? "",
+            passingyear: data.passingyear ?? "",
 
             // Convert array → string
             skills: data.skills ? data.skills.join(", ") : "",
 
-            github: data.github || "",
-            linkedin: data.linkedin || "",
+            github: data.github ?? "",
+            linkedin: data.linkedin ?? "",
           });
         }
       } catch (err) {
@@ -62,10 +63,13 @@ function EditProfile() {
         } else if (err.response?.status === 404) {
           navigate("/profile");
         } else {
-          alert(
-            err.response?.data?.message ||
-            "Unable to fetch profile"
-          );
+          const message = err.response?.data?.message;
+
+          if (typeof message === "object") {
+            alert("Unable to fetch profile");
+          } else {
+            alert(message || "Unable to fetch profile");
+          }
         }
       } finally {
         setLoading(false);
@@ -127,10 +131,13 @@ function EditProfile() {
       }
 
     } catch (err) {
-      alert(
-        err.response?.data?.message ||
-        "Something went wrong"
-      );
+      const message = err.response?.data?.message;
+
+      if (typeof message === "object") {
+        alert("Enter all required fields correctly");
+      } else {
+        alert(message || "Something went wrong");
+      }
     }
   };
 
@@ -182,6 +189,7 @@ function EditProfile() {
                   value="Male"
                   checked={profile.gender === "Male"}
                   onChange={handleChange}
+                  required
                 />
                 Male
               </label>
@@ -263,6 +271,7 @@ function EditProfile() {
               name="currentyear"
               value={profile.currentyear}
               onChange={handleChange}
+              required
             >
               <option value="">Select Year</option>
               <option>1st Year</option>
@@ -279,6 +288,7 @@ function EditProfile() {
               name="currentsemester"
               value={profile.currentsemester}
               onChange={handleChange}
+              required
             >
               <option value="">Select Semester</option>
               <option>1</option>
@@ -301,6 +311,9 @@ function EditProfile() {
               value={profile.passingyear}
               onChange={handleChange}
               placeholder="2028"
+              min="2020"
+              max="2035"
+              required
             />
           </div>
 
@@ -313,7 +326,10 @@ function EditProfile() {
               value={profile.cgpa}
               onChange={handleChange}
               step="0.01"
+              min="0"
+              max="10"
               placeholder="8.50"
+              required
             />
           </div>
 
@@ -325,6 +341,8 @@ function EditProfile() {
               name="activebacklogs"
               value={profile.activebacklogs}
               onChange={handleChange}
+              min="0"
+              required
             />
           </div>
 
@@ -337,6 +355,9 @@ function EditProfile() {
               value={profile.percentage10th}
               onChange={handleChange}
               step="0.01"
+              min="0"
+              max="100"
+              required
             />
           </div>
 
@@ -349,6 +370,9 @@ function EditProfile() {
               value={profile.percentage12th}
               onChange={handleChange}
               step="0.01"
+              min="0"
+              max="100"
+              required
             />
           </div>
 
@@ -371,6 +395,7 @@ function EditProfile() {
               value={profile.skills}
               onChange={handleChange}
               placeholder="Java, React, Node.js, MongoDB..."
+              required
             />
 
           </div>
