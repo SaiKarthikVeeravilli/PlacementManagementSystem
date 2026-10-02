@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const { PDFParse } = require("pdf-parse");
 
 const StudentModel = require("../Models/StudentModel");
@@ -37,30 +35,34 @@ const analyzeResumeLocal = async (req, res, next) => {
       });
     }
 
-    if (
-      !profile.resume ||
-      !profile.resume.filepath
-    ) {
+    if (!profile.resume || !profile.resume.filepath) {
       return res.status(404).json({
         success: false,
         message: "Resume not found",
       });
     }
 
-    const filePath = profile.resume.filepath;
+    // ==========================================
+    // GET RESUME FROM CLOUDINARY
+    // ==========================================
 
-    if (!fs.existsSync(filePath)) {
+    const fileUrl = profile.resume.filepath;
+
+    const response = await fetch(fileUrl);
+
+    if (!response.ok) {
       return res.status(404).json({
         success: false,
-        message: "Resume file does not exist",
+        message: "Unable to access resume from Cloudinary",
       });
     }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const pdfBuffer = Buffer.from(arrayBuffer);
 
     // ==========================================
     // READ PDF
     // ==========================================
-
-    const pdfBuffer = fs.readFileSync(filePath);
 
     const parser = new PDFParse({
       data: pdfBuffer,
@@ -91,7 +93,6 @@ const analyzeResumeLocal = async (req, res, next) => {
 
     const chunks = splitIntoChunks(cleanedText);
 
-
     const embeddedChunks = [];
 
     // ==========================================
@@ -101,18 +102,13 @@ const analyzeResumeLocal = async (req, res, next) => {
     for (let i = 0; i < chunks.length; i++) {
       const chunk = chunks[i];
 
-  
-
       const embedding =
         await generateLocalEmbedding(chunk);
-
-      
 
       embeddedChunks.push({
         studentId: profile._id,
 
-        // IMPORTANT:
-        // Student ID is now used as the stable resume ID
+        // Stable resume ID
         resumeId: profile._id,
 
         chunkIndex: i,
@@ -189,10 +185,7 @@ const matchJobLocal = async (req, res, next) => {
     // CHECK RESUME
     // ==========================================
 
-    if (
-      !profile.resume ||
-      !profile.resume.filepath
-    ) {
+    if (!profile.resume || !profile.resume.filepath) {
       return res.status(404).json({
         success: false,
         message: "Resume not found",
@@ -215,17 +208,17 @@ const matchJobLocal = async (req, res, next) => {
     const jobDescription = job.description;
 
     // ==========================================
-    // MATCH RESUME WITH JOB
+    // MATCH RESUME WITH JOB USING LOCAL AI
     // ==========================================
 
     const result =
       await matchResumeWithJobLocal(
         jobDescription,
 
-        // Stable student ID
+        // Student ID
         profile._id,
 
-        // Stable resume ID
+        // Resume ID
         profile._id
       );
 

@@ -2,9 +2,9 @@ const userModel = require("../Models/UserModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const StudentModel = require("../Models/StudentModel");
-const fs = require("fs");
+const cloudinary = require("../config/cloudinary");
 const sendEmail = require("../Utils/sendEmail");
-const crypto=require('crypto');
+const crypto = require("crypto");
 
 // User signup
 const post_signup = async (req, res, next) => {
@@ -82,15 +82,14 @@ const post_login = async (req, res, next) => {
 
     const token = create_token(found._id);
 
-    // res.cookie("jwt", token, {
-    //   httpOnly: true,
-    //   maxAge: 24 * 60 * 60 * 1000,
-    // });
     res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
-});
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite:
+        process.env.NODE_ENV === "production"
+          ? "none"
+          : "lax",
+    });
 
     return res.status(200).json({
       success: true,
@@ -113,12 +112,14 @@ const me = async (req, res, next) => {
 // Logout
 const logout = async (req, res, next) => {
   try {
-    // res.clearCookie("jwt");
     res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
-});
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite:
+        process.env.NODE_ENV === "production"
+          ? "none"
+          : "lax",
+    });
 
     return res.status(200).json({
       success: true,
@@ -183,16 +184,17 @@ const Add_Student = async (req, res, next) => {
       });
     }
 
+    // Default resume data
     let resumeData = {
       filename: "",
       filepath: "",
       uploadedAt: null,
     };
 
-    // If resume was uploaded
+    // If resume was uploaded to Cloudinary
     if (req.file) {
       resumeData = {
-        filename: req.file.filename,
+        filename: req.file.originalname,
         filepath: req.file.path,
         uploadedAt: new Date(),
       };
@@ -252,8 +254,6 @@ const update_Student = async (req, res, next) => {
       linkedin,
     } = req.body;
 
-   
-
     const profile = await StudentModel.findOne({
       _id: req.params.id,
       userID: req.user._id,
@@ -289,31 +289,49 @@ const update_Student = async (req, res, next) => {
     // Resume replacement
     if (req.file) {
 
-      // Delete old resume
+      // Delete old resume from Cloudinary
       if (
         profile.resume &&
         profile.resume.filepath
       ) {
-        fs.unlink(
-          profile.resume.filepath,
-          (err) => {
-            if (err) {
-              console.log(
-                "Old resume could not be deleted:",
-                err.message
-              );
-            } else {
-              console.log(
-                "Old resume deleted successfully"
-              );
-            }
+        try {
+          const oldUrl = profile.resume.filepath;
+
+          const uploadMarker = "/upload/";
+          const uploadIndex =
+            oldUrl.indexOf(uploadMarker);
+
+          if (uploadIndex !== -1) {
+            let publicId = oldUrl.substring(
+              uploadIndex + uploadMarker.length
+            );
+
+            // Remove version if present
+            publicId = publicId.replace(
+              /^v\d+\//,
+              ""
+            );
+
+            // Remove file extension
+            publicId = publicId.replace(
+              /\.pdf$/,
+              ""
+            );
+
+            // Delete from Cloudinary
+            await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
           }
-        );
+        } catch (deleteError) {
+          console.log(
+            "Old resume could not be deleted from Cloudinary:",
+            deleteError.message
+          );
+        }
       }
 
-      // Save new resume information
+      // Save new Cloudinary resume information
       profile.resume = {
-        filename: req.file.filename,
+        filename: req.file.originalname,
         filepath: req.file.path,
         uploadedAt: new Date(),
       };
@@ -331,18 +349,18 @@ const update_Student = async (req, res, next) => {
     next(err);
   }
 };
+
 // View / Download Resume
 const view_resume = async (req, res, next) => {
   try {
-
     const profile = await StudentModel.findOne({
-      userID: req.user._id
+      userID: req.user._id,
     });
 
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: "Profile not found"
+        message: "Profile not found",
       });
     }
 
@@ -352,167 +370,134 @@ const view_resume = async (req, res, next) => {
     ) {
       return res.status(404).json({
         success: false,
-        message: "Resume not found"
+        message: "Resume not found",
       });
     }
 
-    const filePath = profile.resume.filepath;
-
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({
-        success: false,
-        message: "Resume file does not exist"
-      });
-    }
-
-    res.sendFile(
-      require("path").resolve(filePath)
-    );
+    // Resume is now stored on Cloudinary
+    return res.redirect(profile.resume.filepath);
 
   } catch (err) {
     next(err);
   }
 };
+
 // ==========================================
 // CHANGE PASSWORD
 // ==========================================
 
 const changePassword = async (req, res, next) => {
-
   try {
-
     const {
       currentPassword,
       newPassword,
-      confirmPassword
+      confirmPassword,
     } = req.body;
 
-
-    // 1. Check all fields
+    // Check all fields
     if (
       !currentPassword ||
       !newPassword ||
       !confirmPassword
     ) {
-
       return res.status(400).json({
         success: false,
-        message: "All password fields are required"
+        message: "All password fields are required",
       });
-
     }
 
-
-    // 2. Check new password and confirm password
+    // Check new password and confirm password
     if (newPassword !== confirmPassword) {
-
       return res.status(400).json({
         success: false,
-        message: "New passwords do not match"
+        message: "New passwords do not match",
       });
-
     }
 
-
-    // 3. Find logged-in user
+    // Find logged-in user
     const user = await userModel.findById(
       req.user._id
     );
 
-
     if (!user) {
-
       return res.status(404).json({
         success: false,
-        message: "User not found"
+        message: "User not found",
       });
-
     }
 
-
-    // 4. Check current password
+    // Check current password
     const isMatch = await bcrypt.compare(
       currentPassword,
       user.password
     );
 
-
     if (!isMatch) {
-
       return res.status(400).json({
         success: false,
-        message: "Current password is incorrect"
+        message: "Current password is incorrect",
       });
-
     }
 
-
-    // 5. Save new password
+    // Save new password
     user.password = newPassword;
 
     await user.save();
 
-
     return res.status(200).json({
       success: true,
-      message: "Password changed successfully"
+      message: "Password changed successfully",
     });
 
-
   } catch (err) {
-
     next(err);
-
   }
-
 };
+
+// ==========================================
+// FORGOT PASSWORD
+// ==========================================
+
 const forgotPassword = async (req, res, next) => {
-
   try {
-
     const { email } = req.body;
 
-    // 1. Check email
+    // Check email
     if (!email) {
       return res.status(400).json({
         success: false,
-        message: "Email is required"
+        message: "Email is required",
       });
     }
 
-    // 2. Find user
+    // Find user
     const user = await userModel.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found"
+        message: "User not found",
       });
     }
 
-    // 3. Generate secure token
+    // Generate secure token
     const resetToken = crypto
       .randomBytes(32)
       .toString("hex");
 
-  
-    // 4. Save token
+    // Save token
     user.resetPasswordToken = resetToken;
 
     user.resetPasswordExpires =
       Date.now() + 15 * 60 * 1000;
 
-  
-
     await user.save();
 
-
-    // 5. Create reset link
+    // Create reset link
     const resetLink =
       `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-
-    // 6. Email content
+    // Email content
     const html = `
       <h2>Password Reset</h2>
 
@@ -537,156 +522,133 @@ const forgotPassword = async (req, res, next) => {
       <p>If you did not request this, ignore this email.</p>
     `;
 
-    // 7. Send email
-   
-
+    // Send email
     await sendEmail(
       user.email,
       "Placement Management - Password Reset",
       html
     );
 
-
-    // 8. Send response to frontend
     return res.status(200).json({
       success: true,
-      message: "Password reset link sent to your email"
+      message: "Password reset link sent to your email",
     });
 
   } catch (err) {
-
     next(err);
-
   }
-
 };
+
+// ==========================================
+// RESET PASSWORD
+// ==========================================
+
 const resetPassword = async (req, res, next) => {
-
   try {
-
     const { token } = req.params;
 
     const {
       newPassword,
-      confirmPassword
+      confirmPassword,
     } = req.body;
-
 
     // Check passwords
     if (!newPassword || !confirmPassword) {
-
       return res.status(400).json({
         success: false,
-        message: "All password fields are required"
+        message: "All password fields are required",
       });
-
     }
-
 
     // Check passwords match
     if (newPassword !== confirmPassword) {
-
       return res.status(400).json({
         success: false,
-        message: "Passwords do not match"
+        message: "Passwords do not match",
       });
-
     }
-
 
     // Find user using token
     const user = await userModel.findOne({
-
       resetPasswordToken: token,
-
       resetPasswordExpires: {
-        $gt: Date.now()
-      }
-
+        $gt: Date.now(),
+      },
     });
 
-
     if (!user) {
-
       return res.status(400).json({
         success: false,
-        message: "Invalid or expired reset token"
+        message: "Invalid or expired reset token",
       });
-
     }
-
 
     // Set new password
     user.password = newPassword;
 
-
     // Remove token
     user.resetPasswordToken = null;
-
     user.resetPasswordExpires = null;
 
-
-
-try {
-
-  await user.save();
-
-
-
-} catch (err) {
-
-
-  return res.status(500).json({
-    success: false,
-    message: err.message
-  });
-
-}
-
+    try {
+      await user.save();
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
 
     return res.status(200).json({
-
       success: true,
-
-      message: "Password reset successfully"
-
+      message: "Password reset successfully",
     });
 
-
   } catch (err) {
-
     next(err);
-
   }
-
 };
-const updateNotificationSettings = async (req, res, next) => {
+
+// ==========================================
+// NOTIFICATION SETTINGS
+// ==========================================
+
+const updateNotificationSettings = async (
+  req,
+  res,
+  next
+) => {
   try {
     const { notificationsEnabled } = req.body;
 
-    const user = await userModel.findById(req.user._id);
+    const user = await userModel.findById(
+      req.user._id
+    );
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found"
+        message: "User not found",
       });
     }
 
-    user.notificationsEnabled = notificationsEnabled;
+    user.notificationsEnabled =
+      notificationsEnabled;
 
     await user.save();
 
     return res.status(200).json({
       success: true,
       message: "Notification settings updated",
-      notificationsEnabled: user.notificationsEnabled
+      notificationsEnabled:
+        user.notificationsEnabled,
     });
 
   } catch (err) {
     next(err);
   }
 };
+
 module.exports = {
   post_signup,
   post_login,
@@ -695,5 +657,9 @@ module.exports = {
   profile_check,
   Add_Student,
   update_Student,
-  view_resume,changePassword,forgotPassword,resetPassword,updateNotificationSettings
+  view_resume,
+  changePassword,
+  forgotPassword,
+  resetPassword,
+  updateNotificationSettings,
 };

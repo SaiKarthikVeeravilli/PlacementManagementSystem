@@ -1,49 +1,33 @@
 const multer = require("multer");
-const path = require("path");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-const storage = multer.diskStorage({
-
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "placement-management/resumes",
+    resource_type: "image",
+    allowed_formats: ["pdf"],
   },
-
-filename: (req, file, cb) => {
-
-  const uniqueName =
-    Date.now() +
-    "-" +
-    Math.round(Math.random() * 1E9) +
-    path.extname(file.originalname);
-
-  cb(null, uniqueName);
-}
-
 });
 
 const fileFilter = (req, file, cb) => {
-
-  const extension =
-    path.extname(file.originalname).toLowerCase();
-
   if (
-    extension === ".pdf" &&
-    file.mimetype === "application/pdf"
+    file.mimetype === "application/pdf" &&
+    file.originalname.toLowerCase().endsWith(".pdf")
   ) {
     cb(null, true);
   } else {
-    cb(
-      new Error("Only PDF files are allowed"),
-      false
-    );
+    cb(new Error("Only PDF files are allowed"), false);
   }
-
 };
 
 const UploadMiddleware = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024
-  }
+    fileSize: 5 * 1024 * 1024,
+  },
 });
+
 module.exports = UploadMiddleware;

@@ -62,8 +62,7 @@ app.use("/api", router8);
 const router9 = require("./Routes/EventRoute");
 app.use("/api", router9);
 
-const router10 = require("./Routes/ResumeRoute");
-app.use("/api", router10);
+
 
 const localRouter11 = require("./Routes/localResumeRoute");
 app.use("/api", localRouter11);
