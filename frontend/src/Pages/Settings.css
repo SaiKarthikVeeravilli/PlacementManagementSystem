@@ -1,0 +1,272 @@
+
+.settings-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f5f7fb;
+}
+
+
+.settings-card {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.settings-header {
+  margin-bottom: 30px;
+}
+
+
+.settings-header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+
+.settings-header p {
+  color: #666;
+  margin-top: 8px;
+}
+
+
+.settings-section {
+  border-top: 1px solid #e5e7eb;
+  padding: 25px 0;
+}
+
+
+.settings-section h2 {
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+
+.section-description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   ACCOUNT INFORMATION
+========================================== */
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+
+.info-item span {
+  color: #666;
+}
+
+
+.info-item strong {
+  text-transform: capitalize;
+}
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+
+.form-group label {
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.change-password-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 7px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+
+.change-password-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.logout-btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 7px;
+  background: #dc2626;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+
+.back-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 7px;
+  background: #6b7280;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* ==========================================
+   MESSAGES
+========================================== */
+
+.settings-error {
+  color: #dc2626;
+  margin-bottom: 15px;
+}
+
+
+.settings-success {
+  color: #16a34a;
+  margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   NOTIFICATIONS
+========================================== */
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+
+.setting-row p {
+  color: #666;
+  margin-top: 5px;
+}
+
+
+/* ==========================================
+   TOGGLE
+========================================== */
+
+.switch {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+
+.switch input:checked + .slider {
+  background: #2563eb;
+}
+
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+  .settings-container {
+    padding: 20px 10px;
+  }
+
+
+  .settings-card {
+    padding: 22px;
+  }
+
+
+  .info-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+
+  .setting-row {
+    align-items: flex-start;
+  }
+
+}
+

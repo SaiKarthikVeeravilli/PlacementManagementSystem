@@ -1,0 +1,147 @@
+.contact-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+/* Hero */
+
+.contact-hero {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    padding: 75px 20px;
+    text-align: center;
+    color: white;
+}
+
+.contact-hero-content {
+    max-width: 800px;
+    margin: auto;
+}
+
+.contact-hero h1 {
+    font-size: 42px;
+    margin-bottom: 18px;
+}
+
+.contact-hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0.95;
+}
+
+/* Content */
+
+.contact-content {
+    max-width: 1100px;
+    margin: auto;
+    padding: 60px 25px;
+}
+
+/* Contact cards */
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.contact-card {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.contact-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    color: #1e3a8a;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.contact-card p {
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.contact-card a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+/* Bottom section */
+
+.contact-note {
+    background: white;
+    padding: 40px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.contact-note h2 {
+    color: #1e3a8a;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.contact-note p {
+    max-width: 750px;
+    margin: auto;
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-hero h1 {
+        font-size: 32px;
+    }
+
+    .contact-hero p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .contact-content {
+        padding: 40px 15px;
+    }
+
+    .contact-hero {
+        padding: 60px 15px;
+    }
+
+    .contact-hero h1 {
+        font-size: 28px;
+    }
+
+    .contact-note {
+        padding: 25px;
+    }
+}

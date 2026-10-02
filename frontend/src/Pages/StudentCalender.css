@@ -1,0 +1,85 @@
+.student-calendar {
+  padding: 30px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.calendar-title {
+  margin-bottom: 30px;
+}
+
+.calendar-title h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.calendar-title p {
+  color: #666;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.event-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.event-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.event-header span {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #eef2ff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.event-description {
+  color: #555;
+  line-height: 1.6;
+  margin: 18px 0;
+}
+
+.event-date {
+  font-weight: 600;
+}
+
+.no-events {
+  background: white;
+  padding: 40px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+
+  .student-calendar {
+    padding: 20px;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}

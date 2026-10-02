@@ -1,0 +1,683 @@
+/* =========================================================
+   MAIN NAVBAR
+========================================================= */
+
+.Main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    min-height: 68px;
+
+    padding: 0 35px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+
+    position: relative;
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   PMS LOGO + TITLE
+========================================================= */
+
+.pms {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+.pms-logo {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+    color: white;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+}
+
+.pms p {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 1.25rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+.links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-left: 25px;
+}
+
+.links a {
+    text-decoration: none !important;
+
+    color: black !important;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    transition: all 0.2s ease;
+}
+
+
+/* BLUE BACKGROUND + WHITE TEXT */
+
+.links a:hover {
+    background-color: #2563eb !important;
+
+    color: white !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RIGHT SIDE BUTTONS
+========================================================= */
+
+.buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-left: 20px;
+
+    flex-shrink: 0;
+}
+
+.buttons button {
+    padding: 8px 16px;
+
+    border-radius: 7px;
+
+    border: 1px solid #2563eb;
+
+    background: white;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.buttons button:hover {
+    background: #2563eb;
+
+    color: white;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.20);
+}
+
+
+/* LOGIN / SIGNUP */
+
+.buttons a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   NOTIFICATION WRAPPER
+========================================================= */
+
+.notification-wrapper {
+    position: relative;
+
+    display: inline-block;
+}
+
+
+/* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
+
+.notification-button {
+    position: relative;
+
+    border: none;
+
+    background: transparent;
+
+    color: #374151;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    padding: 8px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    transition: all 0.2s ease;
+}
+
+.notification-button:hover {
+    background: #eff6ff;
+
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   NOTIFICATION BADGE
+========================================================= */
+
+.notification-badge {
+    position: absolute;
+
+    top: 0;
+
+    right: 0;
+
+    background: #dc2626;
+
+    color: white;
+
+    border-radius: 50%;
+
+    min-width: 18px;
+
+    height: 18px;
+
+    padding: 0 3px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    border: 2px solid white;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+.notification-dropdown {
+    position: absolute;
+
+    top: 48px;
+
+    right: 0;
+
+    width: 350px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+
+    z-index: 2000;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   NOTIFICATION HEADER
+========================================================= */
+
+.notification-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 14px 15px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    background: #f8fafc;
+}
+
+.notification-header h3 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.notification-header-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   MARK ALL AS READ
+========================================================= */
+
+.mark-all-read-button {
+    border: none;
+
+    background: transparent;
+
+    color: #2563eb;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    padding: 5px 7px;
+
+    border-radius: 5px;
+
+    transition: all 0.2s ease;
+}
+
+.mark-all-read-button:hover {
+    background: #dbeafe;
+
+    color: #1d4ed8;
+}
+
+
+/* =========================================================
+   CLOSE NOTIFICATION
+========================================================= */
+
+.close-notification-button {
+    border: none;
+
+    background: transparent;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    padding: 4px 6px;
+
+    border-radius: 5px;
+
+    transition: all 0.2s ease;
+}
+
+.close-notification-button:hover {
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.notification-list {
+    max-height: 350px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   NOTIFICATION ITEM
+========================================================= */
+
+.notification-item {
+    padding: 14px;
+
+    border-bottom: 1px solid #f1f5f9;
+
+    cursor: pointer;
+
+    background: white;
+
+    transition: background-color 0.2s ease;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   UNREAD NOTIFICATION
+========================================================= */
+
+.notification-item.unread {
+    background: #eff6ff;
+
+    border-left: 3px solid #2563eb;
+}
+
+.notification-item.unread:hover {
+    background: #dbeafe;
+}
+
+.notification-item.unread p {
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   NOTIFICATION MESSAGE
+========================================================= */
+
+.notification-item p {
+    margin: 0 0 6px 0;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   NOTIFICATION DATE
+========================================================= */
+
+.notification-item small {
+    color: #6b7280;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   NO NOTIFICATIONS
+========================================================= */
+
+.no-notifications {
+    padding: 30px 20px;
+
+    margin: 0;
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   NOTIFICATION SCROLLBAR
+========================================================= */
+
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .Main {
+        padding: 0 20px;
+    }
+
+    .pms p {
+        font-size: 1.1rem;
+    }
+
+    .links {
+        gap: 4px;
+
+        margin-left: 15px;
+    }
+
+    .links a {
+        padding: 7px 9px;
+
+        font-size: 13px;
+    }
+
+    .buttons {
+        gap: 7px;
+
+        margin-left: 10px;
+    }
+
+    .buttons button {
+        padding: 7px 11px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .Main {
+        flex-wrap: wrap;
+
+        min-height: auto;
+
+        padding: 12px 20px;
+
+        gap: 10px;
+    }
+
+    .pms {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .links {
+        order: 2;
+
+        width: 100%;
+
+        margin-left: 0;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+    .buttons {
+        order: 3;
+
+        width: 100%;
+
+        margin-left: 0;
+
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .Main {
+        padding: 12px 15px;
+
+        gap: 12px;
+    }
+
+    .pms p {
+        font-size: 1rem;
+
+        text-align: center;
+
+        white-space: normal;
+    }
+
+    .pms-logo {
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 11px;
+    }
+
+    .links {
+        gap: 5px;
+    }
+
+    .links a {
+        font-size: 12px;
+
+        padding: 7px 9px;
+    }
+
+    .buttons {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .buttons button {
+        padding: 7px 12px;
+
+        font-size: 12px;
+    }
+
+    .notification-dropdown {
+        position: fixed;
+
+        top: 120px;
+
+        left: 10px;
+
+        right: 10px;
+
+        width: auto;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .links a {
+        padding: 6px 7px;
+
+        font-size: 11px;
+    }
+
+    .buttons {
+        gap: 6px;
+    }
+
+    .buttons button {
+        padding: 6px 9px;
+
+        font-size: 11px;
+    }
+
+    .notification-dropdown {
+        top: 130px;
+    }
+}

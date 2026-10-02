@@ -1,0 +1,156 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:70px 80px;
+    min-height:85vh;
+}
+
+.left{
+    width:50%;
+}
+
+.left h1{
+    font-size:55px;
+    color:#1e3a8a;
+    margin-bottom:20px;
+}
+
+.left p{
+    font-size:20px;
+    color:#555;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.heroButtons{
+    display:flex;
+    gap:20px;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.secondary{
+    background:white;
+    border:2px solid #2563eb;
+    color:#2563eb;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.right{
+    width:45%;
+}
+
+.right img{
+    width:100%;
+    border-radius:15px;
+}
+
+.features{
+    padding:80px;
+    text-align:center;
+    background:#f7f9fc;
+}
+
+.features h2{
+    font-size:40px;
+    margin-bottom:50px;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:320px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card h3{
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#666;
+    line-height:1.6;
+}
+
+footer{
+    background:#1e293b;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+.heroButtons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.heroButtons button {
+  padding: 12px 24px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Get Started */
+.heroButtons .primary {
+  background: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+}
+
+.heroButtons .primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+}
+
+.heroButtons .primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
+}
+
+/* Learn More */
+.heroButtons .secondary {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.heroButtons .secondary:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+.heroButtons .secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
+}

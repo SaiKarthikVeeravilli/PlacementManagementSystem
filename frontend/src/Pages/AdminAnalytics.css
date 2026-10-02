@@ -1,0 +1,245 @@
+
+/* =========================================
+   MAIN ANALYTICS PAGE
+========================================= */
+
+.analytics-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 35px 50px 60px;
+  box-sizing: border-box;
+  color: #1f2937;
+}
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.analytics-page > h1 {
+  margin: 0 0 30px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* =========================================
+   OVERVIEW CARDS
+========================================= */
+
+.analytics-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.analytics-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  min-height: 120px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+.analytics-card h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.analytics-card p {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+/* =========================================
+   ANALYTICS SECTIONS
+========================================= */
+
+.analytics-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 30px;
+
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.analytics-section h2 {
+  margin: 0 0 24px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* =========================================
+   CHART CONTAINER
+========================================= */
+
+.chart-container {
+  width: 100%;
+  height: 350px;
+  position: relative;
+}
+
+/* Doughnut chart needs a little less height */
+
+.analytics-section:first-of-type .chart-container {
+  height: 320px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   PACKAGE STATISTICS
+========================================= */
+
+.package-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.package-container > div {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 22px;
+  text-align: center;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.package-container > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+.package-container h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.package-container p {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* =========================================
+   LOADING / ERROR / EMPTY STATE
+========================================= */
+
+.analytics-page > h2 {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 22px;
+  color: #6b7280;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .analytics-page {
+    padding: 30px;
+  }
+
+  .analytics-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .package-container {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 320px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .analytics-page {
+    padding: 22px 15px 40px;
+  }
+
+  .analytics-page > h1 {
+    font-size: 25px;
+    margin-bottom: 22px;
+  }
+
+  .analytics-cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .analytics-card {
+    min-height: 105px;
+    padding: 20px;
+  }
+
+  .analytics-card p {
+    font-size: 26px;
+  }
+
+  .analytics-section {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .analytics-section h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .chart-container {
+    height: 280px;
+  }
+
+  .analytics-section:first-of-type .chart-container {
+    height: 280px;
+    max-width: 100%;
+  }
+
+  .package-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .package-container > div {
+    padding: 18px;
+  }
+}
+

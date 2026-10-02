@@ -1,0 +1,162 @@
+.applications-container {
+  margin-left: 240px;
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.applications-container h1 {
+  margin-bottom: 25px;
+  color: #1f2937;
+}
+
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.application-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.application-card h2 {
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.application-card h3 {
+  margin-bottom: 18px;
+  color: #2563eb;
+}
+
+.application-card p {
+  margin: 10px 0;
+  color: #4b5563;
+}
+
+/* Status */
+
+.application-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.application-status span {
+  font-weight: 600;
+  color: #374151;
+}
+
+.application-status strong {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* Status colors */
+
+.status-applied {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-shortlisted {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-selected {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Progress */
+
+.status-progress {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  position: relative;
+}
+
+.status-progress::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background: #d1d5db;
+  z-index: 0;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background: #d1d5db;
+  color: white;
+
+  font-weight: bold;
+}
+
+.step p {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.step.active span {
+  background: #2563eb;
+}
+
+.step.active p {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Rejected */
+
+.rejected-message {
+  margin-top: 20px;
+  padding: 12px;
+
+  background: #fee2e2;
+  color: #b91c1c;
+
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .applications-container {
+    margin-left: 0;
+    padding: 20px;
+  }
+}

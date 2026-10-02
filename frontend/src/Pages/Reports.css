@@ -1,0 +1,222 @@
+.reports-container {
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.reports-header h1 {
+  margin: 0;
+}
+
+.download-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.download-btn:hover {
+  opacity: 0.85;
+}
+
+
+/* ============================= */
+/* PAGE TITLE */
+/* ============================= */
+
+.reports-container h1 {
+  margin-bottom: 30px;
+  font-size: 30px;
+  color: #1f2937;
+}
+
+
+/* ============================= */
+/* SECTION TITLE */
+/* ============================= */
+
+.reports-container h2 {
+  margin-top: 35px;
+  margin-bottom: 20px;
+  color: #374151;
+  font-size: 22px;
+}
+
+
+/* ============================= */
+/* OVERVIEW CARDS */
+/* ============================= */
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+.report-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+
+.report-card:hover {
+  transform: translateY(-4px);
+}
+
+
+.report-card h3 {
+  margin: 0;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+
+.report-card p {
+  margin-top: 12px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #111827;
+}
+
+
+/* ============================= */
+/* APPLICATION STATUS */
+/* ============================= */
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+.status-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.status-card h3 {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+
+.status-card p {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 12px 0 0;
+}
+
+
+/* ============================= */
+/* PACKAGE SECTION */
+/* ============================= */
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+
+.package-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.package-card h3 {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+
+.package-card p {
+  margin-top: 12px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #111827;
+}
+
+
+/* ============================= */
+/* LOADING */
+/* ============================= */
+
+.report-loading {
+  padding: 40px;
+  text-align: center;
+  font-size: 20px;
+}
+
+
+/* ============================= */
+/* ERROR */
+/* ============================= */
+
+.report-error {
+  padding: 40px;
+  text-align: center;
+  color: #dc2626;
+  font-size: 20px;
+}
+
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 1000px) {
+
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .package-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .reports-container {
+    padding: 20px;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

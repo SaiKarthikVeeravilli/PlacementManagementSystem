@@ -1,0 +1,192 @@
+.resume-analyzer {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.resume-analyzer-header {
+  margin-bottom: 25px;
+}
+
+.resume-analyzer-header h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+}
+
+.resume-analyzer-header p {
+  margin: 0;
+  color: #666;
+}
+
+/* Cards */
+
+.resume-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.resume-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.resume-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Step number */
+
+.step-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Buttons */
+
+.resume-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.process-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.process-btn:hover {
+  background: #1d4ed8;
+}
+
+.analyze-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.analyze-btn:hover {
+  background: #15803d;
+}
+
+.resume-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Textarea */
+
+.job-textarea {
+  width: 100%;
+  min-height: 240px;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 14px;
+  margin-top: 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.job-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.job-textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Error */
+
+.resume-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Analysis result */
+
+.analysis-card {
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.analysis-card h3 {
+  margin-top: 0;
+  color: #1e3a8a;
+}
+
+.analysis-result {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 15px;
+
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: #374151;
+}
+
+/* Divider */
+
+.resume-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 25px 0;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .resume-analyzer {
+    margin: 15px;
+    padding: 10px;
+  }
+
+  .resume-analyzer-header h2 {
+    font-size: 25px;
+  }
+
+  .resume-card {
+    padding: 18px;
+  }
+
+  .job-textarea {
+    min-height: 200px;
+  }
+
+  .resume-btn {
+    width: 100%;
+  }
+}

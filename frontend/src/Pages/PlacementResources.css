@@ -1,0 +1,82 @@
+
+.resources-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 40px 30px;
+}
+
+.resources-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.resources-header h1 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.resources-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.resources-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.resource-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.14);
+}
+
+.resource-card h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #222;
+}
+
+.resource-card p {
+  color: #555;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.resource-card span {
+  margin-top: 15px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .resources-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .resources-page {
+    padding: 25px 15px;
+  }
+
+  .resources-container {
+    grid-template-columns: 1fr;
+  }
+}
+

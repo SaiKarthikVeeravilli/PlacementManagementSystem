@@ -1,0 +1,480 @@
+/* ================================
+   ADMIN DASHBOARD
+================================ */
+
+.admin-dashboard {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 50px;
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.admin-navbar {
+  width: 100%;
+  min-height: 68px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 45px;
+  box-sizing: border-box;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+
+/* Logo */
+
+.admin-logo {
+  display: flex;
+  align-items: center;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: #2563eb;
+
+  white-space: nowrap;
+}
+
+
+/* Navigation */
+
+.admin-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-nav-links a {
+  text-decoration: none;
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  padding: 9px 13px;
+  border-radius: 7px;
+
+  transition: all 0.2s ease;
+}
+
+.admin-nav-links a:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.admin-nav-links a:active {
+  transform: scale(0.97);
+}
+
+
+/* ================================
+   WELCOME SECTION
+================================ */
+
+.admin-welcome {
+  max-width: 1200px;
+  margin: 40px auto 25px;
+
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.admin-welcome h1 {
+  margin: 0 0 8px;
+
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.admin-welcome p {
+  margin: 0;
+
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* ================================
+   STATISTICS
+================================ */
+
+.admin-stats {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+
+  padding: 0 25px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+
+.admin-stat-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 22px;
+
+  min-height: 125px;
+  box-sizing: border-box;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  transition: all 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #bfdbfe;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.10);
+}
+
+
+.admin-stat-card h3 {
+  margin: 0 0 15px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.admin-stat-card p {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+
+/* ================================
+   GENERAL SECTION
+================================ */
+
+.admin-section {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.admin-section h2 {
+  margin: 0 0 18px;
+
+  color: #111827;
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+
+/* ================================
+   QUICK ACTIONS
+================================ */
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+.admin-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  padding: 0 17px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  box-sizing: border-box;
+
+  transition: all 0.2s ease;
+}
+
+
+.admin-actions a:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.20);
+}
+
+
+.admin-actions a:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+/* ================================
+   MANAGEMENT GRID
+================================ */
+
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+
+/* ================================
+   MANAGEMENT CARD
+================================ */
+
+.management-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  transition: all 0.2s ease;
+}
+
+
+.management-card:hover {
+  transform: translateY(-4px);
+
+  border-color: #bfdbfe;
+
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.10);
+}
+
+
+.management-card h3 {
+  margin: 0 0 10px;
+
+  color: #111827;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+.management-card p {
+  margin: 0 0 20px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  min-height: 67px;
+}
+
+
+.management-card a {
+  display: inline-flex;
+  align-items: center;
+
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+
+.management-card a:hover {
+  color: #1d4ed8;
+  transform: translateX(4px);
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1000px) {
+
+  .admin-navbar {
+    padding: 0 25px;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .management-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* ================================
+   SMALL TABLET
+================================ */
+
+@media (max-width: 750px) {
+
+  .admin-navbar {
+    min-height: auto;
+
+    padding: 18px 20px;
+
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .admin-nav-links {
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
+  .admin-welcome {
+    margin-top: 30px;
+  }
+
+  .admin-welcome h1 {
+    font-size: 28px;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .management-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 500px) {
+
+  .admin-navbar {
+    padding: 16px;
+  }
+
+  .admin-logo {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .admin-nav-links {
+    gap: 4px;
+  }
+
+  .admin-nav-links a {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .admin-welcome {
+    padding: 0 18px;
+    margin-top: 25px;
+  }
+
+  .admin-welcome h1 {
+    font-size: 25px;
+  }
+
+  .admin-welcome p {
+    font-size: 14px;
+  }
+
+  .admin-stats {
+    padding: 0 18px;
+
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-stat-card {
+    min-height: 110px;
+  }
+
+  .admin-section {
+    padding: 0 18px;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .admin-actions a {
+    width: 100%;
+  }
+
+  .management-card {
+    padding: 20px;
+  }
+
+}
+
+
+/* ================================
+   VERY SMALL MOBILE
+================================ */
+
+@media (max-width: 350px) {
+
+  .admin-nav-links a {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+
+  .admin-welcome h1 {
+    font-size: 22px;
+  }
+
+  .admin-stat-card p {
+    font-size: 26px;
+  }
+
+}
