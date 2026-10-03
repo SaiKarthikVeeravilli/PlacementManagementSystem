@@ -42,9 +42,9 @@ const ErrorHandling=async (err,req,res,next)=>{
     message: "File size must be less than 5 MB"
   });
 }
-  return res.status(err.status || 500).json({
+return res.status(err.status || 500).json({
   success: false,
-  message: err.status ? err.message : 'Internal Server Error'
+  message: err.message || "Internal Server Error"
 });
 }
 module.exports=ErrorHandling;

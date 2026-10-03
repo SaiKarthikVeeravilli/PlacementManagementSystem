@@ -24,33 +24,75 @@ const {
 
 const analyzeResumeLocal = async (req, res, next) => {
   try {
+
+    console.log("==========================================");
+    console.log("LOCAL AI RESUME PROCESSING STARTED");
+    console.log("==========================================");
+
+
+    // ==========================================
+    // GET STUDENT PROFILE
+    // ==========================================
+
+    console.log("STEP 1: Finding student profile...");
+
     const profile = await StudentModel.findOne({
       userID: req.user._id,
     });
 
     if (!profile) {
+      console.log("ERROR: Student profile not found");
+
       return res.status(404).json({
         success: false,
         message: "Student profile not found",
       });
     }
 
+    console.log("STEP 1 SUCCESS: Student profile found");
+
+
+    // ==========================================
+    // CHECK RESUME
+    // ==========================================
+
+    console.log("STEP 2: Checking resume...");
+
     if (!profile.resume || !profile.resume.filepath) {
+
+      console.log("ERROR: Resume not found");
+
       return res.status(404).json({
         success: false,
         message: "Resume not found",
       });
     }
 
+    console.log("STEP 2 SUCCESS: Resume found");
+    console.log("Resume URL:", profile.resume.filepath);
+
+
     // ==========================================
     // GET RESUME FROM CLOUDINARY
     // ==========================================
+
+    console.log("STEP 3: Downloading resume from Cloudinary...");
 
     const fileUrl = profile.resume.filepath;
 
     const response = await fetch(fileUrl);
 
+    console.log(
+      "Cloudinary response status:",
+      response.status
+    );
+
     if (!response.ok) {
+
+      console.log(
+        "ERROR: Unable to download resume from Cloudinary"
+      );
+
       return res.status(404).json({
         success: false,
         message: "Unable to access resume from Cloudinary",
@@ -58,11 +100,22 @@ const analyzeResumeLocal = async (req, res, next) => {
     }
 
     const arrayBuffer = await response.arrayBuffer();
+
     const pdfBuffer = Buffer.from(arrayBuffer);
+
+    console.log(
+      "STEP 3 SUCCESS: Resume downloaded",
+      "Size:",
+      pdfBuffer.length,
+      "bytes"
+    );
+
 
     // ==========================================
     // READ PDF
     // ==========================================
+
+    console.log("STEP 4: Extracting PDF text...");
 
     const parser = new PDFParse({
       data: pdfBuffer,
@@ -74,38 +127,82 @@ const analyzeResumeLocal = async (req, res, next) => {
 
     await parser.destroy();
 
+    console.log(
+      "STEP 4 SUCCESS: PDF text extracted",
+      "Characters:",
+      extractedText?.length || 0
+    );
+
+
     // ==========================================
     // CLEAN TEXT
     // ==========================================
 
+    console.log("STEP 5: Cleaning extracted text...");
+
     const cleanedText = cleanText(extractedText);
 
     if (!cleanedText) {
+
+      console.log(
+        "ERROR: No text could be extracted from resume"
+      );
+
       return res.status(400).json({
         success: false,
         message: "Could not extract text from resume",
       });
     }
 
+    console.log(
+      "STEP 5 SUCCESS: Text cleaned",
+      "Characters:",
+      cleanedText.length
+    );
+
+
     // ==========================================
     // SPLIT INTO CHUNKS
     // ==========================================
 
+    console.log("STEP 6: Splitting resume into chunks...");
+
     const chunks = splitIntoChunks(cleanedText);
 
+    console.log(
+      "STEP 6 SUCCESS: Total chunks:",
+      chunks.length
+    );
+
+
     const embeddedChunks = [];
+
 
     // ==========================================
     // GENERATE LOCAL EMBEDDINGS
     // ==========================================
 
+    console.log(
+      "STEP 7: Generating Ollama embeddings..."
+    );
+
     for (let i = 0; i < chunks.length; i++) {
+
       const chunk = chunks[i];
+
+      console.log(
+        `Generating embedding ${i + 1}/${chunks.length}...`
+      );
 
       const embedding =
         await generateLocalEmbedding(chunk);
 
+      console.log(
+        `Embedding ${i + 1} generated successfully`
+      );
+
       embeddedChunks.push({
+
         studentId: profile._id,
 
         // Stable resume ID
@@ -119,23 +216,55 @@ const analyzeResumeLocal = async (req, res, next) => {
       });
     }
 
+    console.log(
+      "STEP 7 SUCCESS: All embeddings generated"
+    );
+
+
     // ==========================================
     // REMOVE OLD CHUNKS
     // ==========================================
+
+    console.log(
+      "STEP 8: Removing old resume chunks..."
+    );
 
     await ResumeChunkModel.deleteMany({
       studentId: profile._id,
     });
 
+    console.log(
+      "STEP 8 SUCCESS: Old chunks removed"
+    );
+
+
     // ==========================================
     // SAVE NEW CHUNKS
     // ==========================================
+
+    console.log(
+      "STEP 9: Saving new resume chunks..."
+    );
 
     await ResumeChunkModel.insertMany(
       embeddedChunks
     );
 
+    console.log(
+      "STEP 9 SUCCESS: Resume chunks saved"
+    );
+
+
+    // ==========================================
+    // SUCCESS
+    // ==========================================
+
+    console.log("==========================================");
+    console.log("LOCAL AI RESUME PROCESSING COMPLETED");
+    console.log("==========================================");
+
     return res.status(200).json({
+
       success: true,
 
       message:
@@ -145,7 +274,17 @@ const analyzeResumeLocal = async (req, res, next) => {
         embeddedChunks.length,
     });
 
+
   } catch (err) {
+
+    console.error("==========================================");
+    console.error("LOCAL RESUME PROCESSING ERROR");
+    console.error("==========================================");
+
+    console.error("Error name:", err.name);
+    console.error("Error message:", err.message);
+    console.error("Error stack:", err.stack);
+
     next(err);
   }
 };
@@ -157,6 +296,7 @@ const analyzeResumeLocal = async (req, res, next) => {
 
 const matchJobLocal = async (req, res, next) => {
   try {
+
     const { jobId } = req.body;
 
     if (!jobId) {
@@ -165,6 +305,7 @@ const matchJobLocal = async (req, res, next) => {
         message: "Job ID is required",
       });
     }
+
 
     // ==========================================
     // GET STUDENT PROFILE
@@ -181,6 +322,7 @@ const matchJobLocal = async (req, res, next) => {
       });
     }
 
+
     // ==========================================
     // CHECK RESUME
     // ==========================================
@@ -191,6 +333,7 @@ const matchJobLocal = async (req, res, next) => {
         message: "Resume not found",
       });
     }
+
 
     // ==========================================
     // GET JOB
@@ -205,7 +348,9 @@ const matchJobLocal = async (req, res, next) => {
       });
     }
 
+
     const jobDescription = job.description;
+
 
     // ==========================================
     // MATCH RESUME WITH JOB USING LOCAL AI
@@ -222,7 +367,9 @@ const matchJobLocal = async (req, res, next) => {
         profile._id
       );
 
+
     return res.status(200).json({
+
       success: true,
 
       message:
@@ -235,7 +382,14 @@ const matchJobLocal = async (req, res, next) => {
         result.relevantChunks,
     });
 
+
   } catch (err) {
+
+    console.error(
+      "LOCAL JOB MATCHING ERROR:",
+      err
+    );
+
     next(err);
   }
 };
