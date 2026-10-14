@@ -72,11 +72,14 @@ const post_login = async (req, res, next) => {
         }
 
         const normalizedEmail = email.trim().toLowerCase();
+        
 
         // Password is select:false in UserModel
         const found = await userModel
             .findOne({ email: normalizedEmail })
             .select("+password");
+          
+           
 
         if (!found) {
             return res.status(400).json({
