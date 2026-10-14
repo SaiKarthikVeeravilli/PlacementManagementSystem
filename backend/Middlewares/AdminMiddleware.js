@@ -40,8 +40,18 @@ const AdminMiddleware = async (req, res, next) => {
     next();
 
   } catch (err) {
-    next(err);
+  if (
+    err.name === "JsonWebTokenError" ||
+    err.name === "TokenExpiredError"
+  ) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired session"
+    });
   }
+
+  return next(err);
+}
 };
 
 module.exports = AdminMiddleware;
